@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Chat</title>
+	<link rel="stylesheet" href="">
+<style>
+#myDiv {
+width: 300px;
+height:500px;
+border:1px solid black;
+overflow:hidden;
+}
+</style>
+<script type="text/javascript">
+ 
+function refresca(){
+ 
+var conexion;
+ 
+if (window. XMLHttpRequest){
+ 
+conexion=new XMLHttpRequest();
+ 
+}
+ 
+else {
+ 
+conexion= new ActiveXObject("Microsoft.XMLHttp");
+ 
+}
+ 
+conexion.open("GET", "recibe.php",true);
+ 
+conexion.send();
+ 
+conexion.onreadystatechange=function(){
+ 
+if (conexion.readyState==4 && conexion.status==200) {
+ 
+document.getElementById("myDiv").innerHTML=conexion.responseText;
+ 
+}
+ 
+setTimeout('refresca()',10000);
+ 
+};
+ 
+}
+ 
+window.onload = function inicia(){
+ 
+setTimeout('refresca()',1000);
+ 
+}
+ 
+</script>
+ 
+</head>
+ 
+<body>
+ 
+<form action='envia.php' method='POST'>
+<label for="usuario">Introduce tu usuario: </label>
+<input type="text" id="usuario" name="usuario" /><br />
+<label for="texto">Texto a enviar: </label>
+<input type="text" id="texto" name="texto" />
+<input type="submit" value="enviar" />
+</form>
+
+<div id="myDiv">
+</div>
+</body>
+</html>
